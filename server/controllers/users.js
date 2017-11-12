@@ -39,11 +39,11 @@ module.exports = {
         })
     },
     showOneTemplate: function(req, res){
-        Template.findById(req.params.id, function (err, templates){
+        Template.findById(req.params.id, function (err, template){
             if(!err){
                 console.log("successful loaded all inside the server users show templates ");
-                console.log(templates);
-                res.json(templates);
+                console.log(template);
+                res.json(template);
             }
             else{
                 console.log("error");
@@ -52,5 +52,4 @@ module.exports = {
             }
             })
         },
-    
 }
