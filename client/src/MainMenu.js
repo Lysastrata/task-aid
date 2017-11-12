@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { Menu, Icon, Button} from 'antd';
+import { Menu, Icon, Button, Tooltip} from 'antd';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -10,6 +10,11 @@ class MainMenu extends Component {
     addTemplate() {
         console.log('inner add');
         this.props.store.addTemplate();
+        setTimeout(function() {
+            const input = document.querySelector('[name="template-name"]');
+            input.focus();
+            input.select();
+        }, 100);
     }
     selectTemplate(template) {
         console.log('select inner');
@@ -37,6 +42,7 @@ class MainMenu extends Component {
                 )}
               </MenuItemGroup>
               <div>
+               <Tooltip title="Create new template..." placement="bottom">
                 <Button 
                 type="primary"
                 shape="circle"
@@ -45,6 +51,7 @@ class MainMenu extends Component {
                 onClick={this.addTemplate.bind(this)} 
                 >
                 </Button>
+               </Tooltip>
               </div>
 
         </Menu>

@@ -1,10 +1,21 @@
 import { autorun, observable, computed, action } from 'mobx';
 
 class TaskStore {
-    @observable name = "Call plumber"
-    @observable description = "Some descriptoin here";
-    @observable daysBefore = 3
+    constructor(daysBefore, name="", description="") {
+        this.daysBefore = daysBefore;
+        this.name = name;
+        this.description = description;
+    }
+    @observable name = ""
+    @observable description = "";
+    @observable daysBefore;
 }
+
+const testTasks = [new TaskStore(30, "Hire workers for demo"),
+        new TaskStore(20, "Shop for materials"),
+        new TaskStore(10, "Hire contractors for install"),
+        new TaskStore(3, "Post on Zillow"),
+        new TaskStore(0, "Show house")]
 
 class TemplateStore {
     constructor(id, name) {
@@ -14,11 +25,11 @@ class TemplateStore {
     @observable id
     @observable name
     @observable tasks = [
-        new TaskStore()
+        
     ];
 
     @action addTask() {
-        this.tasks.push(new TaskStore());
+        this.tasks.push(new TaskStore(this.tasks.length ? this.tasks[this.tasks.length - 1].daysBefore : 0));
     }
 
     @action deleteTask(task) {
@@ -32,8 +43,10 @@ class AppStore {
     @observable activeTemplateId = 0;
     @observable templateList = [
         new TemplateStore('123','Flip House'),
-        new TemplateStore('456', 'Rennovate Kitchen'),
     ];
+
+    @observable saving = false;
+    @observable loading = false;
 
     @computed get activeTemplate() {
         return this.templateList[this.activeTemplateId];
@@ -53,6 +66,13 @@ class AppStore {
                 this.activeTemplateId = index;
             }
         });
+    }
+
+    @action saveTemplate(template) {
+        this.saving = true;
+        setTimeout(() => {
+            this.saving = false;
+        }, 1000);
     }
 }
 

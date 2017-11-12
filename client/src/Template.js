@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Layout, Button, Icon } from 'antd';
+import { Row, Col, Layout, Button, Icon, Spin } from 'antd';
 import TaskList from './TaskList.js';
 import { observer } from 'mobx-react';
 const { Header, Footer, Sider, Content } = Layout;
@@ -8,11 +8,60 @@ const { Header, Footer, Sider, Content } = Layout;
 class Template extends Component {
     addTask() {
         this.props.template.addTask();
+        setTimeout(function() {
+            const fields = document.querySelectorAll('[name="name"]');
+        const last = fields[fields.length - 1];
+        last.focus();
+        last.select();
+    }, 100);
+    }
+    saveTemplate() {
+        this.props.store.saveTemplate(this.props.template);
     }
     editName(e) {
         console.log('edit name');
         console.log(e.target.value);
         this.props.template.name = e.target.value;
+    }
+    renderTaskList() {
+        const template = this.props.template;
+        return <TaskList template={template} />;
+    }
+    renderEmptyTemplate() {
+        const template = this.props.template;
+        return (
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                position: 'absolute',
+                top: 100,
+                bottom: 0,
+                left: 200,
+                right: 0,
+            }}>
+                <div style={{
+                    fontSize: 30,
+                    opacity: 0.5,
+                }}>You don't have any tasks yet&mdash;<br />Click here to get started.</div>
+                <Button type="primary" style={{
+                    fontSize: 25,
+                    padding: '10px 15px',
+                    margin: 30,
+                    height: 'auto',
+                }} onClick={this.addTask.bind(this)}><Icon type="plus" /> Add task</Button>
+            </div>
+        );      
+    }
+    renderBody() {
+        const template = this.props.template;
+        if (template.tasks.length) {
+            return this.renderTaskList();
+        } else {
+            return this.renderEmptyTemplate();
+        }
     }
     render() {
         const template = this.props.template;
@@ -29,7 +78,7 @@ class Template extends Component {
               padding: '0px 34px',
             }}
           >
-            <input value={this.props.template.name} style={{
+            <input name="template-name" value={this.props.template.name} style={{
               fontSize: 40,
               border: 'none',
             }}
@@ -37,7 +86,12 @@ class Template extends Component {
             />
             <div style={{flexGrow: 1}}></div>
             <div>
-            <Button type="default" size="large" style={{marginRight: 10}}>
+            <Spin spinning={this.props.store.saving} style={{
+                margin: 10,
+                position: 'relative',
+                top: 4,
+            }} />
+            <Button type="default" size="large" onClick={this.saveTemplate.bind(this)} style={{marginRight: 10}}>
                 <Icon type="save" />Save
               </Button>
               <Button type="primary" size="large" onClick={this.addTask.bind(this)}>
@@ -46,7 +100,7 @@ class Template extends Component {
             </div>
           </Header>
           <Content>
-            <TaskList template={template} />
+            {this.renderBody()}
           </Content>
           <Footer></Footer>
         </Layout>

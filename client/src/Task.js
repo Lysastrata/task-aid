@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Row, Input, Icon } from 'antd';
+import { Card, Row, Input, Icon, Tooltip } from 'antd';
 import SuggestionList from './SuggestionList.js';
 import { observer } from 'mobx-react';
 
@@ -16,6 +16,7 @@ class Task extends Component {
         const { name, daysBefore, description } = this.props.task;
         return (
             <Card style={{margin: 10, padding: 0,}}>
+                <Tooltip title="Delete task..." placement="left">
                 <Icon 
                     type="close-circle"
                     style={{
@@ -26,6 +27,7 @@ class Task extends Component {
                     }}
                     onClick={this.deleteTask.bind(this)}
                 />
+                </Tooltip>
                 <Row type="flex">
                     <input name="name" onChange={this.editTask.bind(this)} placeholder="Task name" value={name} style={{fontSize: 24, flexGrow: 1, border: 'none'}}/>
                     <div>

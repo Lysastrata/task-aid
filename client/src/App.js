@@ -45,7 +45,9 @@ class App extends Component {
               alignItems: 'center',
               justifyContent: 'center',
               color: '#aaa'
-            }}>Connexio</div>
+            }}><img src="/blueprint-logo.png" style={{
+              width: 150,
+            }}/></div>
             
 
             <MainMenu store={appStore} />
@@ -77,7 +79,7 @@ class App extends Component {
               <a href="#">Logout</a>
           </div>
         </Sider>
-        <Template template={appStore.activeTemplate} />
+        <Template template={appStore.activeTemplate} store={appStore} style={{height: '100%'}} />
       </Layout>
     );
   }
