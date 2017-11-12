@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Template = mongoose.model('Template');
+var gcal = require('google-calendar');
+var google_calendar = new gcal.GoogleCalendar(ya29.GlsCBXRcslUYEjvwGMpnDaKjU7OKnIuVIms9WaxMNZR-FACjQrdYoUNnF1rbbXgZ7GRizYs_Zs9TmV4wz6_yhJ7IAFz9ochMOH7zv_V0iIfrZj_2awZlcL4OfWP7);
+
+
 
 module.exports = {
     createTemplate: function (req, res){
@@ -52,4 +56,22 @@ module.exports = {
             }
             })
         },
+    createEvent: function(req, res){
+        Template.findById(req.params.id, function (err, template){
+            for (var node in template.nodes) {
+                var date = moment().subtract(node.daysBefore, 'days');
+                var correctDate = moment(""+date, "YYYY-MM-DD");
+                GoogleCalendar.events.insert(primary, function(err){
+                       if(!err){
+                          res.json( {
+                            "start": {
+                              "date": correctDate
+                            },
+                            "summary": node.name
+                       })
+                    }
+                })
+            }
+        })
+        }
 }
