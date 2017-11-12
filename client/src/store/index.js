@@ -1,4 +1,4 @@
-import { autorun, observable, computed, action } from 'mobx';
+import { autorun, observable, computed, action, toJS } from 'mobx';
 
 class TaskStore {
     constructor(daysBefore, name="", description="") {
@@ -15,7 +15,7 @@ const testTasks = [new TaskStore(30, "Hire workers for demo"),
         new TaskStore(20, "Shop for materials"),
         new TaskStore(10, "Hire contractors for install"),
         new TaskStore(3, "Post on Zillow"),
-        new TaskStore(0, "Show house")]
+        new TaskStore(0, "Show house")];
 
 class TemplateStore {
     constructor(id, name) {
@@ -70,9 +70,30 @@ class AppStore {
 
     @action saveTemplate(template) {
         this.saving = true;
-        setTimeout(() => {
-            this.saving = false;
-        }, 1000);
+
+
+    setTimeout(() => {
+        this.saving = false;
+    }, 1000);
+        // const endpointUrl = 'https://148b84cd.ngrok.io/api/templates';
+        // const body = toJS(template);
+        // console.log('Body:');
+        // console.log(body);
+        // fetch(endpointUrl, {
+        //     method: 'post',
+        //     body: JSON.stringify(body),
+        // }).then(res => {
+        //     this.saving = false
+        //     alert('Success!');
+        // })
+        //     .catch(err => {
+        //         this.saving = false;
+        //         alert('Error:', err);
+        //         console.log(err);
+        //     });
+
+
+
     }
 }
 
