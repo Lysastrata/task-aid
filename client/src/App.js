@@ -3,27 +3,52 @@ import MainMenu from './MainMenu.js';
 import Template from './Template.js';
 import './App.css';
 import { Layout, Button, Icon } from 'antd';
+import appStore from './store';
+import { observer } from 'mobx-react';
 const { Header, Footer, Sider, Content } = Layout;
 
+@observer
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      templates: [{
+        name: 'Test template',
+        tasks: [{name: 'test', daysBefore: 3, description: 'test description'}],
+      }],
+      activeTemplate: 0,
+    };
+  }
+  handleClickAddTask() {
+    const templates = this.state.templates;
+    templates[0].tasks.push({});
+    this.setState({
+      templates,
+    });
+  }
+  handleClickSaveTemplate() {
+    alert('Saved!');
+  }
+
   render() {
+    console.log('the appStore:', appStore);
     return (
       <Layout
         style={{height: "100vh"}}>
         <Sider
-          style={{width: 240, display: 'flex', flexDirection: 'column'}}>
+          style={{width: 320, display: 'flex', flexDirection: 'column'}}>
           
             <div style={{
-              height: 70,
+              height: 100,
               fontSize: 30,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#aaa'
-            }}>Connexxio</div>
+            }}>Connexio</div>
             
 
-            <MainMenu />
+            <MainMenu store={appStore} />
 
             <div style={{
               background: '#333',
@@ -36,7 +61,7 @@ class App extends Component {
               right: 0,
             }}>
               <img
-                src="https://d3iw72m71ie81c.cloudfront.net/male-44.jpg"
+                src="https://d3iw72m71ie81c.cloudfront.net/female-4.jpg"
                 style={{
                   borderRadius: 100,
                   width: 72,
@@ -48,36 +73,11 @@ class App extends Component {
               <h3 style={{
                 color: '#aaa',
                 marginTop: 10,
-              }}>Nick Tesla</h3>
+              }}>Bernice Ferguson</h3>
               <a href="#">Logout</a>
           </div>
         </Sider>
-        <Layout>
-          <Header
-            style={{
-              background: '#fff',
-              height: 70,
-              display: 'flex',
-              alignItems: 'center',
-              padding: '0px 34px',
-            }}
-          >
-            <input value="Flip House" style={{
-              fontSize: 24,
-              border: 'none',
-            }}/>
-            <div style={{flexGrow: 1}}></div>
-            <div>
-              <Button type="primary" size="large">
-                <Icon type="plus" />Add task
-              </Button>
-            </div>
-          </Header>
-          <Content>
-            <Template />
-          </Content>
-          <Footer></Footer>
-        </Layout>
+        <Template template={appStore.activeTemplate} />
       </Layout>
     );
   }
