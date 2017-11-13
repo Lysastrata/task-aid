@@ -1,4 +1,5 @@
 import { autorun, observable, computed, action, toJS } from 'mobx';
+import Random from 'meteor-random';
 
 class TaskStore {
     constructor(daysBefore, name="", description="") {
@@ -6,6 +7,7 @@ class TaskStore {
         this.name = name;
         this.description = description;
     }
+    @observable id = Random.id();
     @observable name = ""
     @observable description = "";
     @observable daysBefore;

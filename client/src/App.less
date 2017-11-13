@@ -1,0 +1,101 @@
+@import '~antd/dist/antd.less';
+@import "./theme.less";   // override variables here
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+textarea, input {
+    padding: 3px;
+    margin: 2px;
+
+}
+textarea:focus, input:focus {
+    outline: none;
+    background-color: #f8f8f8;
+}
+
+.ant-menu-item {
+  font-size: 20px !important;
+  height: 50px !important;
+  padding-top:  5px !important;
+}
+
+.template-list-item-appear {
+  height: 0;
+  overflow-y: hidden;
+  transition: height 500ms ease-in;
+  background-color: red !important;
+}
+
+.template-list-item-appear.template-list-item-enter-appear {
+  height: 110px;
+  background-color: blue !important;
+}
+
+.template-list-item-enter {
+  height: 0;
+  overflow-y: hidden;
+  transition: height 500ms ease-in;
+  background-color: green !important;
+}
+
+.template-list-item-enter.template-list-item-enter-active {
+  height: 110px;
+  
+}
+
+.template-list-item-leave {
+  height: 110px;
+  overflow-y: hidden;
+}
+
+.template-list-item-leave.template-list-item-leave-active {
+  height: 0;
+  transition: height 300ms ease-in;
+}
+
+.example-enter {
+  opacity: 0.01;
+  transform: translateY(-50px);
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: all 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: all 300ms ease-in;
+  transform: translateY(10px) scale(0.97);
+}

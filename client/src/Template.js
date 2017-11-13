@@ -46,11 +46,11 @@ class Template extends Component {
                     fontSize: 30,
                     opacity: 0.5,
                 }}>You don't have any tasks yet&mdash;<br />Click here to get started.</div>
-                <Button type="primary" style={{
-                    fontSize: 25,
-                    padding: '10px 15px',
+                <Button type="primary" size="large" style={{
+                    // fontSize: 25,
+                    // padding: '15px 20px',
                     margin: 30,
-                    height: 'auto',
+                    // height: 'auto',
                 }} onClick={this.addTask.bind(this)}><Icon type="plus" /> Add task</Button>
             </div>
         );      

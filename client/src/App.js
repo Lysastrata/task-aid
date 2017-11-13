@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MainMenu from './MainMenu.js';
 import Template from './Template.js';
-import './App.css';
+import './App.less';
 import { Layout, Button, Icon } from 'antd';
 import appStore from './store';
 import { observer } from 'mobx-react';
@@ -76,7 +76,10 @@ class App extends Component {
                 color: '#aaa',
                 marginTop: 10,
               }}>Bernice Ferguson</h3>
-              <a href="#">Logout</a>
+              <div style={{marginTop: 15}}>
+                <a href="#" style={{marginRight: 10}}><Icon type="setting" /> Settings</a>
+                <a href="#"><Icon type="login" /> Logout</a>
+              </div>
           </div>
         </Sider>
         <Template template={appStore.activeTemplate} store={appStore} style={{height: '100%'}} />

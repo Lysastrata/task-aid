@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Menu, Icon, Button, Tooltip} from 'antd';
+import { MenuItem } from './components/MenuItem.js';
+
+
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -33,7 +36,11 @@ class MainMenu extends Component {
             selectedKeys={[store.activeTemplate.id]}
           >
               <MenuItemGroup key="g1" title="Templates">
+
                 {store.templateList.map(template =>
+                   
+
+                    
                     <Menu.Item key={template.id}>
                     <div onClick={this.selectTemplate.bind(this, template)} >
                     {template.name}
@@ -47,7 +54,8 @@ class MainMenu extends Component {
                 type="primary"
                 shape="circle"
                 icon="plus"
-                style={{display: 'block', margin: '10px auto'}}
+                size="large"
+                style={{display: 'block', margin: '25px auto'}}
                 onClick={this.addTemplate.bind(this)} 
                 >
                 </Button>

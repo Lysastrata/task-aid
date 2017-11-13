@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Task from './Task.js';
 import { observer } from 'mobx-react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 
 @observer
 class TaskList extends Component {
@@ -10,7 +12,15 @@ class TaskList extends Component {
         const tasks =  this.props.template.tasks || [];
         return (
             <div>
-                {tasks.map(task => <Task task={task} template={template} />)}
+                   <ReactCSSTransitionGroup
+                        transitionName="example"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={300}
+                        transitionAppear={true}
+                        transitionLeave={true}
+                    >
+                {tasks.map(task => <Task key={task.id} task={task} template={template} />)}
+                </ReactCSSTransitionGroup>
             </div>
         );
     }
