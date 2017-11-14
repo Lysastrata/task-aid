@@ -25,9 +25,15 @@ class Template extends Component {
     }
     renderTaskList() {
         const template = this.props.template;
-        return <TaskList template={template} />;
+        const shouldShowEmptyTemplate = template.tasks.length == 0;
+        return (
+            <div>
+                {this.renderEmptyTemplate(shouldShowEmptyTemplate)}
+                <TaskList template={template} />
+            </div>
+            );
     }
-    renderEmptyTemplate() {
+    renderEmptyTemplate(shouldShow) {
         const template = this.props.template;
         return (
             <div style={{
@@ -41,6 +47,9 @@ class Template extends Component {
                 bottom: 0,
                 left: 200,
                 right: 0,
+                opacity: shouldShow ? 1 : 0,
+                transform: shouldShow ? 'scale(1)' : 'scale(0.95)',
+                transition: 'all 0.4s ease',
             }}>
                 <div style={{
                     fontSize: 30,
@@ -50,6 +59,9 @@ class Template extends Component {
                     // fontSize: 25,
                     // padding: '15px 20px',
                     margin: 30,
+                    animationName: 'shake',
+                    animationDuration: '0.4s',
+                    animationIterationCount: '1',
                     // height: 'auto',
                 }} onClick={this.addTask.bind(this)}><Icon type="plus" /> Add task</Button>
             </div>
@@ -57,6 +69,7 @@ class Template extends Component {
     }
     renderBody() {
         const template = this.props.template;
+        return this.renderTaskList();
         if (template.tasks.length) {
             return this.renderTaskList();
         } else {

@@ -15,7 +15,8 @@ class Task extends Component {
     render() {
         const { name, daysBefore, description } = this.props.task;
         return (
-            <Card style={{margin: 10, padding: 0,}}>
+            <div className="task-card-container" style={{position: 'relative'}}>
+            <Card style={{margin: 0, padding: 0,}}>
                 <Tooltip title="Delete task..." placement="left">
                 <Icon 
                     type="close-circle"
@@ -56,6 +57,7 @@ class Task extends Component {
                     />
                 </Row>
             </Card>
+            </div>
         );
     }
 }

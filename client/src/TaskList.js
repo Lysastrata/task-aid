@@ -15,7 +15,7 @@ class TaskList extends Component {
                    <ReactCSSTransitionGroup
                         transitionName="example"
                         transitionEnterTimeout={500}
-                        transitionLeaveTimeout={300}
+                        transitionLeaveTimeout={600}
                         transitionAppear={true}
                         transitionLeave={true}
                     >

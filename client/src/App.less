@@ -1,6 +1,21 @@
 @import '~antd/dist/antd.less';
 @import "./theme.less";   // override variables here
 
+@keyframes shake {
+    0%   {transform: translateX(0)}
+    10% { transform: translateX(-4px)}
+    30%  {transform: translateX(4px)}
+    50%  { transform: translateX(-4px)}
+    70%{transform: translateX(4px)}
+    90% { transform: translateX(-4px)}
+    100% { transform: translateX(0)}
+}
+
+@keyframes pulse {
+  0% { transform: scale(1)}
+  50% { transform: scale(1.05)}
+  100% { transform: scale(1)}
+}
 .App {
   text-align: center;
 }
@@ -83,19 +98,44 @@ textarea:focus, input:focus {
 .example-enter {
   opacity: 0.01;
   transform: translateY(-50px);
+  height: 0;
+  transition: all 200ms ease !important;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .example-enter.example-enter-active {
   opacity: 1;
-  transition: all 500ms ease-in;
+  height: 142px;
+  transform: translateY(0);
+  transition: all 200ms ease !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .example-leave {
   opacity: 1;
+  height: 142px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .example-leave.example-leave-active {
   opacity: 0.01;
-  transition: all 300ms ease-in;
+  height: 0;
+  transition: all 200ms ease;
   transform: translateY(10px) scale(0.97);
+  padding-top: 0;
+  padding-bottom: 0;
 }
+
+.task-card-container {
+  background: 'red' !important;
+  height: 152px;
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow-y: visible;
+  padding-top: 10px;
+
+}
+
